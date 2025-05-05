@@ -1,8 +1,8 @@
-import { httpRouter } from "convex/server";
-import { httpAction } from "./_generated/server";
-import { Webhook } from "svix";
 import type { WebhookEvent } from "@clerk/nextjs/server";
+import { httpRouter } from "convex/server";
+import { Webhook } from "svix";
 import { api } from "./_generated/api";
+import { httpAction } from "./_generated/server";
 
 const http = httpRouter();
 
@@ -43,10 +43,10 @@ const clerkWebhook = httpAction(async (ctx, request) => {
 	const eventType = evt.type;
 
 	if (eventType === "user.created") {
-		const { id, email_addresses, first_name, last_name, image_url  } = evt.data;
+		const { id, email_addresses, first_name, last_name, image_url } = evt.data;
 		const email = email_addresses[0]?.email_address;
 		const name = `${first_name || ""} ${last_name || ""}`.trim();
-		const profileImage = image_url
+		const profileImage = image_url;
 
 		try {
 			await ctx.runMutation(api.users.createUser, {
@@ -54,7 +54,7 @@ const clerkWebhook = httpAction(async (ctx, request) => {
 				name,
 				userId: id,
 				createdAt: Date.now(),
-				profileImage
+				profileImage,
 			});
 		} catch (error) {
 			console.error("Error creating user in Convex", error);

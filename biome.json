@@ -12,7 +12,7 @@
 	"formatter": {
 		"enabled": true,
 		"indentStyle": "tab",
-		"indentWidth": 1,
+		"indentWidth": 2,
 		"lineWidth": 120,
 		"lineEnding": "lf"
 	},
@@ -24,14 +24,20 @@
 		}
 	},
 	"linter": {
-		
-			"domains": {
-      "next": "all"
-    
+		"domains": {
+			"next": "all"
 		},
 		"enabled": true,
+
 		"rules": {
 			"recommended": true,
+			"nursery": {
+				"useSortedClasses": {
+					"level": "error",
+					"fix": "safe",
+					"options": {}
+				}
+			},
 			"style": {
 				"useLiteralEnumMembers": "error",
 				"noCommaOperator": "error",
